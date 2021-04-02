@@ -1,12 +1,23 @@
 import './App.css';
 import React, {createContext, useState} from "react";
+import axios from "axios";
 
 function App() {
 const [input, setInput] = useState("");
 
 const onSubmitForm = (event) => {
   event.preventDefault();
-  console.log(input);
+  takeName();
+
+}
+
+const takeName = () => {
+   //need to change the backend for {name:input}
+  axios.post("http://localhost:8080/name", {name:input}).then(response => {
+    console.log(response);
+  }).catch(error => {
+    console.log("error in takeName function", error);
+  });
 }
 
 const onInputChange = (event) => {
