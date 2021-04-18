@@ -66,9 +66,6 @@ function App() {
               id="name"
               onChange={onInputChange}
               error={nameError}
-
-              id="standard-error-helper-text"
-             
               helperText={helperText ? "Your name is required" : ""} 
             />
 
