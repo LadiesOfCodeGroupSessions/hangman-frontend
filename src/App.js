@@ -1,10 +1,14 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 
 function App() {
   const [input, setInput] = useState("");
   const [user, setUser] = useState();
+  const [nameError, setNameError] = useState(false);
+  const [helperText, setHelperText] = useState(false);
 
   useEffect(() => {
     const userData = localStorage.getItem("hangman");
@@ -15,7 +19,14 @@ function App() {
 
   const onSubmitForm = (event) => {
     event.preventDefault();
-    takeName();
+    if (input) {
+      setNameError(false);
+      setHelperText(false);
+      takeName();
+    } else {
+      setNameError(true);
+      setHelperText(true);
+    }
   };
 
   const takeName = () => {
@@ -31,6 +42,10 @@ function App() {
   };
 
   const onInputChange = (event) => {
+    if (event.target.value) {
+      setNameError(false);
+      setHelperText(false);
+    }
     setInput(event.target.value);
   };
 
@@ -38,14 +53,30 @@ function App() {
     <div className="App">
       {user ? (
         <div>
-          <h1>{user.name}</h1>
+          <h1>Hi, {user.name}</h1>
         </div>
       ) : (
-        <form onSubmit={onSubmitForm}>
-          <label htmlFor="name">Name</label>
-          <input type="text" id="name" onChange={onInputChange} />
-          <input type="submit" value="Enter" />
-        </form>
+        <>
+          <h1>Hello, welcome to The Hangman Game</h1>
+
+          <form onSubmit={onSubmitForm}>
+            <label htmlFor="name">Enter your name </label>
+            <TextField
+              type="text"
+              id="name"
+              onChange={onInputChange}
+              error={nameError}
+
+              id="standard-error-helper-text"
+             
+              helperText={helperText ? "Your name is required" : ""} 
+            />
+
+            <Button variant="contained" type="submit" color="primary">
+              Start the game
+            </Button>
+          </form>
+        </>
       )}
     </div>
   );
