@@ -1,8 +1,13 @@
-import { render, screen } from "@testing-library/react";
+import React from "react";
 import App from "./App";
+import { shallow, mount } from "enzyme";
 
-test("renders name label", () => {
-  render(<App />);
-  const nameLabel = screen.getByText(/Name/i);
-  expect(nameLabel).toBeInTheDocument();
+describe('App', () => {
+
+  it('Should have form', () => {
+    const wrapper = shallow(<App 
+      />);
+    expect(wrapper.find('form').length).toEqual(1);
+  });
+
 });

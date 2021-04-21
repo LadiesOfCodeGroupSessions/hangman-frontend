@@ -6,7 +6,7 @@ import TextField from "@material-ui/core/TextField";
 
 function App() {
   const [input, setInput] = useState("");
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
   const [nameError, setNameError] = useState(false);
   const [helperText, setHelperText] = useState(false);
 
@@ -66,7 +66,7 @@ function App() {
               id="name"
               onChange={onInputChange}
               error={nameError}
-              helperText={helperText ? "Your name is required" : ""} 
+              helperText={helperText ? "Your name is required" : ""}
             />
 
             <Button variant="contained" type="submit" color="primary">
