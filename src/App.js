@@ -59,7 +59,7 @@ function App() {
         <>
           <h1>Hello, welcome to The Hangman Game</h1>
 
-          <form onSubmit={onSubmitForm}>
+          <form aria-label="player name" onSubmit={onSubmitForm}>
             <label htmlFor="name">Enter your name </label>
             <TextField
               type="text"
