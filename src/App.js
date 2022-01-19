@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import { takeName, createGame } from "./api/takeName";
 
 function App() {
   const [input, setInput] = useState("");
@@ -54,6 +55,7 @@ function App() {
       {user ? (
         <div>
           <h1>Hi, {user.name}</h1>
+
         </div>
       ) : (
         <>
