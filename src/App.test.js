@@ -18,13 +18,6 @@ describe('App', () => {
     expect(wrapper.find('form').length).toEqual(1);
   });
 
-  it('Should have a button that works', () => {
-    const mockCallBack = jest.fn();
-
-    const button = shallow(<Button onClick={mockCallBack}/>);
-    button.find('Button').simulate('click');
-    expect(mockCallBack.mock.calls.length).toEqual(1);
-  });
     // const wrapper = shallow(<App />);
     // console.log(wrapper.debug());
     // expect(wrapper.find('Button').simulate('click')).toEqual(1);
