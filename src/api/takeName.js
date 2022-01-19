@@ -1,7 +1,7 @@
 import axios from "axios";
 import { BASE_URL } from "./constants";
 
-function takeName() {
+function takeName(input) {
     return axios
         .post(BASE_URL + "/player", { name: input })
         .then((response) => {

@@ -2,7 +2,7 @@ import "./App.css";
 import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { takeName } from "./api/takeName";
+import takeName from "./api/takeName";
 
 function App() {
   const [input, setInput] = useState("");
@@ -22,7 +22,7 @@ function App() {
     if (input) {
       setNameError(false);
       setHelperText(false);
-      takeName().then(setUser);
+      takeName(input).then(setUser);
     } else {
       setNameError(true);
       setHelperText(true);
