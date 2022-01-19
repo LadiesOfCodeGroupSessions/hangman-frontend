@@ -1,9 +1,8 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { takeName, createGame } from "./api/takeName";
+import { takeName } from "./api/takeName";
 
 function App() {
   const [input, setInput] = useState("");
@@ -23,23 +22,11 @@ function App() {
     if (input) {
       setNameError(false);
       setHelperText(false);
-      takeName();
+      takeName().then(setUser);
     } else {
       setNameError(true);
       setHelperText(true);
     }
-  };
-
-  const takeName = () => {
-    axios
-      .post("http://localhost:8080/api/v1/player", { name: input })
-      .then((response) => {
-        localStorage.setItem("hangman", JSON.stringify(response.data));
-        setUser(response.data);
-      })
-      .catch((error) => {
-        console.log("error in takeName function", error);
-      });
   };
 
   const onInputChange = (event) => {

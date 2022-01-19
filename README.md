@@ -26,3 +26,4 @@
 - create function that takes lives and returns correct image
 - create component that shows the image
 - add button to start new game in alert
+- we need to hide secret word from the api response
