@@ -22,7 +22,7 @@ function App() {
     if (input) {
       setNameError(false);
       setHelperText(false);
-      takeName(input).then(setUser);
+      takeName(input).then(setUser).catch(console.error);
     } else {
       setNameError(true);
       setHelperText(true);
