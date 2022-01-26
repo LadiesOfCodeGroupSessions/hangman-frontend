@@ -46,7 +46,7 @@ function App() {
         </div>
       ) : (
         <>
-          <h1>Hello, welcome to The Hangman Game</h1>
+          <h1>Welcome to The Hangman Game!</h1>
 
           <form aria-label="player name" onSubmit={onSubmitForm}>
             <label htmlFor="name">Enter your name </label>
