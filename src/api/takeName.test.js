@@ -1,13 +1,26 @@
 import takeName from "./takeName";
-import * as axios from "axios";
+import axios from "axios";
 
-// TODO finish mocking axios call
+jest.mock("axios");
+
 describe('takeName', () => {
-    it('Returns player\'s name and game id', async () => {
-        jest.mock("axios");
+    afterEach( () => {
+        jest.clearAllMocks()
+    })
+
+    it('Returns player\'s name and player id', async () => {
         const input = "Joanna";
+
+        axios.post.mockResolvedValueOnce({
+            data: {
+              name: "Lawrencia",
+              id: 1
+            }
+          });
+      
         const data = await takeName(input);
 
-        expect(data.name).toEqual("Joanna");
+        expect(data.name).toEqual("Lawrencia");
+        expect(data.id).toEqual(1);
     });
   });
