@@ -23,4 +23,12 @@ describe('takeName', () => {
         expect(data.name).toEqual("Lawrencia");
         expect(data.id).toEqual(1);
     });
+
+    it('Returns error', async () => {
+
+      axios.get.mockReturnValue(Promise.reject({
+         "Error: ": "Cannot start the game, sorry :("
+      )});
+
+    })
   });
