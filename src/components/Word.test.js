@@ -7,7 +7,7 @@ describe('Word', () => {
     it('Should render 5 underscores if secret word length is 5', () => {
         render(<Word secretWordLength={5} />)
         screen.debug()
-        const para = screen.queryByText('_')
+        const para = screen.queryAllByText('_')
         expect(para.length).toBe(5);
     })
 })

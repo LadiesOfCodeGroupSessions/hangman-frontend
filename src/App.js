@@ -40,7 +40,7 @@ function App() {
 
   return (
     <div className="App">
-      <Word apple={5} snake="hello" />
+      <Word secretWordLength={5} />
       {user ? (
         <div>
           <h1>Hi, {user.name}</h1>
