@@ -31,3 +31,21 @@
 
 ## Learning
 - Async assertions must be awaited or returned [docs](https://github.com/jest-community/eslint-plugin-jest/blob/v24.3.2/docs/rules/valid-expect.md)
+
+
+## Sample response from teh guess endpoint
+{
+    "gameId": 1,
+    "secretWord": "CHOCOLATE",
+    "gameInProgress": true,
+    "lives": 10,
+    "incorrectLetters": [],
+    "correctLetters": [
+        {
+            "letter": "A",
+            "position": [
+                6
+            ]
+        }
+    ]
+}
