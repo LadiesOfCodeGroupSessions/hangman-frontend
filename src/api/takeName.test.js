@@ -24,13 +24,13 @@ describe("takeName", () => {
     expect(data.id).toEqual(1);
   });
 
-  it("Returns error", async () => {
+  it("Returns error", () => {
     const errorMsg = {
-      "Error: ": "Cannot start the game, sorry :(",
+      "Error:":"Cannot start the game, sorry :(",
     };
 
     axios.post.mockReturnValue(Promise.reject(errorMsg));
     
-    await expect(takeName("Joanna")).rejects.toBe(errorMsg);
+    expect(takeName("Joanna")).rejects.toBe(errorMsg);
   });
 });
