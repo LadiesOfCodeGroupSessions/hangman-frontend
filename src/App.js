@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import takeName from "./api/takeName";
+import Word from "./components/Word";
 
 function App() {
   const [input, setInput] = useState("");
@@ -39,6 +40,7 @@ function App() {
 
   return (
     <div className="App">
+      <Word apple={5} snake="hello" />
       {user ? (
         <div>
           <h1>Hi, {user.name}</h1>
