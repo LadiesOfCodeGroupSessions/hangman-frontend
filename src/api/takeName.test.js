@@ -28,12 +28,9 @@ describe("takeName", () => {
     const errorMsg = {
       "Error: ": "Cannot start the game, sorry :(",
     };
-    axios.post.mockReturnValue(Promise.reject(errorMsg));
 
-    try {
-      await takeName("Joanna");
-    } catch (error) {
-      expect(error).toBe(errorMsg);
-    }
+    axios.post.mockReturnValue(Promise.reject(errorMsg));
+    
+    await expect(takeName("Joanna")).rejects.toBe(errorMsg);
   });
 });
