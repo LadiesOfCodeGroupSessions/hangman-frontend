@@ -27,3 +27,7 @@
 - create component that shows the image
 - add button to start new game in alert
 - we need to hide secret word from the api response
+
+
+## Learning
+- Async assertions must be awaited or returned [docs](https://github.com/jest-community/eslint-plugin-jest/blob/v24.3.2/docs/rules/valid-expect.md)
