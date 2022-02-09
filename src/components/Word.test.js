@@ -13,13 +13,13 @@ describe("Word", () => {
     const correctLetters = [
       {
         letter: "A",
-        position: [1],
+        position: [0],
       },
     ];
 
     render(<Word secretWordLength={5} correctLetters={correctLetters} />);
     screen.debug();
     const letterElements = screen.queryAllByRole("listitem");
-    expect(letterElements[1].textContent).toBe("A");
+    expect(letterElements[0].textContent).toBe("A");
   });
 });

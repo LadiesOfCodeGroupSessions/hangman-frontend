@@ -1,3 +1,10 @@
-.word > span {
+.word {
+    display: flex;
+    list-style-type: none;
+    font-size: 50px;
+    justify-content: center;
+}
+
+.word > li {
     margin: 5px;
 }

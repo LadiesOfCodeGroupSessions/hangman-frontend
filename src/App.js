@@ -40,7 +40,12 @@ function App() {
 
   return (
     <div className="App">
-      <Word secretWordLength={5} />
+      <Word secretWordLength={5} correctLetters={[
+      {
+        letter: "A",
+        position: [0],
+      },
+    ]} />
       {user ? (
         <div>
           <h1>Hi, {user.name}</h1>
