@@ -1,7 +1,13 @@
 function Keyboard(props) {
-    return (<div>
-        <button onClick={(e) => props.guess('Q')}>Q</button>
-    </div>);
+  return (
+    <div>
+      {"QWERTYUIOPASDFGHJKLZXCVBNM".split("").map((letter) => (
+        <button key={letter} onClick={() => props.guess(letter)}>
+          {letter}
+        </button>
+      ))}
+    </div>
+  );
 }
 
 export default Keyboard;
