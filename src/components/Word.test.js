@@ -20,6 +20,6 @@ describe("Word", () => {
     render(<Word secretWordLength={5} correctLetters={correctLetters} />);
     screen.debug();
     const letterElements = screen.queryAllByRole("listitem");
-    expect(letterElements[0].textContent).toBe("A");
+    expect(letterElements[0]).toHaveTextContent("A");
   });
 });
