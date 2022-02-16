@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import takeName from "./api/takeName";
 import Word from "./components/Word";
+import Keyboard from "./components/Keyboard";
 
 function App() {
   const [input, setInput] = useState("");
@@ -46,6 +47,7 @@ function App() {
         position: [0],
       },
     ]} />
+     <Keyboard guess={() => {}} />
       {user ? (
         <div>
           <h1>Hi, {user.name}</h1>
