@@ -5,12 +5,18 @@ import TextField from "@material-ui/core/TextField";
 import takeName from "./api/takeName";
 import Word from "./components/Word";
 import Keyboard from "./components/Keyboard";
+import guessLetter from "./api/guessLetter";
 
 function App() {
   const [input, setInput] = useState("");
   const [user, setUser] = useState(null);
   const [nameError, setNameError] = useState(false);
   const [helperText, setHelperText] = useState(false);
+  const [correctGuesses, setCorrectGuesses] = useState([]);
+  const [incorrectGuesses, setIncorrectGuesses] = useState([]);
+  const [numberOfLetters, setNumberOfLetters] = useState(0);
+  const [lives, setLives] = useState(10);
+  const [gameInProgress, setGameInProgress] = useState(false);
 
   useEffect(() => {
     const userData = localStorage.getItem("hangman");
@@ -39,19 +45,23 @@ function App() {
     setInput(event.target.value);
   };
 
+  const handleGuess = (letter) => {
+    guessLetter(letter)
+    // TODO - UPDATE THE STATE
+  } 
+
   return (
     <div className="App">
-      <Word secretWordLength={5} correctLetters={[
+      <Word secretWordLength={numberOfLetters} correctLetters={[
       {
         letter: "A",
         position: [0],
       },
     ]} />
-     <Keyboard guess={() => {}} />
+     <Keyboard guess={handleGuess} />
       {user ? (
         <div>
           <h1>Hi, {user.name}</h1>
-
         </div>
       ) : (
         <>
