@@ -41,4 +41,5 @@ describe("startGame", () => {
 
         await expect(startGame(payload)).rejects.toBe(errorMsg);
     });
+
 });
