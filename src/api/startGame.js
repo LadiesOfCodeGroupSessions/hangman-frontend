@@ -8,3 +8,4 @@ async function startGame(payload) {
 }
 
 export default startGame
+

@@ -18,6 +18,7 @@ function App() {
   const [numberOfLetters, setNumberOfLetters] = useState(0);
   const [lives, setLives] = useState(10);
   const [gameInProgress, setGameInProgress] = useState(false);
+  const [gameId, setGameId] = useState(0);
 
   useEffect(() => {
     const userData = localStorage.getItem("hangman");
@@ -47,14 +48,14 @@ function App() {
   };
 
   const handleGuess = (letter) => {
-    const startGameResponse = startGame({"playerId": 5, "gameInProgress": true});
-    //{"secretWordLength":7,"gameId":4}
-    const jsonResponse = JSON.stringify(startGameResponse);
+    // TODO Pass in playerId (at the moment the value is hard-coded)
+    // TODO Fix - gameId should be set to what's being returned from the response but that is NOT working
+    startGame({"playerId": 5, "gameInProgress": true}).then(response => {
+      setGameId(response["gameId"])
+    })
 
-    const guessResponse = guessLetter(letter);
-    // For lives
-    // Extract lives from json
-    // setLives(lives)
+    // TODO once the above is fixed, then this line should work
+    const guessResponse = guessLetter({"gameId":gameId, "letter":letter});
   } 
 
   return (
