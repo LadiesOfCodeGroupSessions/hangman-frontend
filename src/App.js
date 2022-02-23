@@ -6,6 +6,7 @@ import takeName from "./api/takeName";
 import Word from "./components/Word";
 import Keyboard from "./components/Keyboard";
 import guessLetter from "./api/guessLetter";
+import startGame from "./api/startGame";
 
 function App() {
   const [input, setInput] = useState("");
@@ -46,8 +47,14 @@ function App() {
   };
 
   const handleGuess = (letter) => {
-    guessLetter(letter)
-    // TODO - UPDATE THE STATE
+    const startGameResponse = startGame({"playerId": 5, "gameInProgress": true});
+    //{"secretWordLength":7,"gameId":4}
+    const jsonResponse = JSON.stringify(startGameResponse);
+
+    const guessResponse = guessLetter(letter);
+    // For lives
+    // Extract lives from json
+    // setLives(lives)
   } 
 
   return (
