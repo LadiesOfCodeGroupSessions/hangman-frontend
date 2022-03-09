@@ -34,7 +34,7 @@ function App() {
       setHelperText(false);
       takeName(input).then((user) => {
         setUser(user)
-        return startGame({"playerId": user["id"], "gameInProgress": true})
+        return startGame({ "playerId": user["id"], "gameInProgress": true })
       }).then(response => {
         console.log(response)
         setGameId(response["gameId"])
@@ -54,21 +54,23 @@ function App() {
   };
 
   const handleGuess = (letter) => {
-    guessLetter({"gameId":gameId, "letter":letter});
-  } 
+    guessLetter({ "gameId": gameId, "letter": letter });
+  }
 
   return (
     <div className="App">
-      <Word secretWordLength={numberOfLetters} correctLetters={[
-      {
-        letter: "A",
-        position: [0],
-      },
-    ]} />
-     <Keyboard guess={handleGuess} />
       {user ? (
         <div>
           <h1>Hi, {user.name}</h1>
+
+          <Word secretWordLength={numberOfLetters} correctLetters={[
+            {
+              letter: "A",
+              position: [0],
+            },
+          ]} />
+          
+          <Keyboard guess={handleGuess} />
         </div>
       ) : (
         <>
