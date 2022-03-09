@@ -32,7 +32,13 @@ function App() {
     if (input) {
       setNameError(false);
       setHelperText(false);
-      takeName(input).then(setUser).catch(console.error);
+      takeName(input).then((user) => {
+        setUser(user)
+        return startGame({"playerId": user["id"], "gameInProgress": true})
+      }).then(response => {
+        console.log(response)
+        setGameId(response["gameId"])
+      }).catch(console.error);
     } else {
       setNameError(true);
       setHelperText(true);
@@ -48,14 +54,7 @@ function App() {
   };
 
   const handleGuess = (letter) => {
-    // TODO Pass in playerId (at the moment the value is hard-coded)
-    // TODO Fix - gameId should be set to what's being returned from the response but that is NOT working
-    startGame({"playerId": 5, "gameInProgress": true}).then(response => {
-      setGameId(response["gameId"])
-    })
-
-    // TODO once the above is fixed, then this line should work
-    const guessResponse = guessLetter({"gameId":gameId, "letter":letter});
+    guessLetter({"gameId":gameId, "letter":letter});
   } 
 
   return (
