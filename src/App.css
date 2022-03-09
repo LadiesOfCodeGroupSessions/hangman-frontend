@@ -36,3 +36,20 @@
     transform: rotate(360deg);
   }
 }
+
+.name-label {
+  text-align: left;
+  margin-bottom: 24px;
+}
+
+.name-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  align-self: center;
+  margin: 24px auto;
+}
+
+.MuiFormControl-root.MuiTextField-root {
+  margin-bottom: 24px;
+}

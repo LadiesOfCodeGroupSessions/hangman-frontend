@@ -19,6 +19,7 @@ function App() {
   const [lives, setLives] = useState(10);
   const [gameInProgress, setGameInProgress] = useState(false);
   const [gameId, setGameId] = useState(0);
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     const userData = localStorage.getItem("hangman");
@@ -36,8 +37,10 @@ function App() {
         setUser(user)
         return startGame({ "playerId": user["id"], "gameInProgress": true })
       }).then(response => {
-        console.log(response)
-        setGameId(response["gameId"])
+        const { gameId, secretWordLength } = response
+        setGameId(gameId)
+        setNumberOfLetters(secretWordLength)
+
       }).catch(console.error);
     } else {
       setNameError(true);
@@ -54,39 +57,82 @@ function App() {
   };
 
   const handleGuess = (letter) => {
-    guessLetter({ "gameId": gameId, "letter": letter });
+    if (gameId === 0) {
+      console.error('something went wrong')
+      return
+    }
+
+    guessLetter({ "gameId": gameId, "letter": letter })
+      .then((response) => {
+        const {
+          correctLetters,
+          incorrectLetters,
+          lives: livesLeft,
+          gameInProgress: inProgress
+        } = response
+        setCorrectGuesses(correctLetters)
+        setIncorrectGuesses(incorrectLetters)
+        setLives(livesLeft)
+        setGameInProgress(inProgress)
+        getGuessOutcomeMessage(letter, correctLetters, incorrectLetters, livesLeft, inProgress)
+      })
+  }
+
+  const getGuessOutcomeMessage = (letter, correctLetters, incorrectLetters, livesLeft, inProgress) => {
+    if (!inProgress && livesLeft === 0) {
+      setMessage('Game Over!')
+      // TODO: Fix game in progress, should change to false when game is won
+    } else if (!inProgress) {
+      setMessage('You\'ve won!')
+    } else if (correctLetters.find((item) => item.letter === letter)) {
+      setMessage('Correct!')
+    } else {
+      setMessage('Incorrect!')
+    }
   }
 
   return (
     <div className="App">
-      {user ? (
+      {user && gameId !== 0 ? (
         <div>
           <h1>Hi, {user.name}</h1>
-
-          <Word secretWordLength={numberOfLetters} correctLetters={[
-            {
-              letter: "A",
-              position: [0],
-            },
-          ]} />
-          
-          <Keyboard guess={handleGuess} />
+          <Word
+            secretWordLength={numberOfLetters}
+            correctLetters={correctGuesses}
+          />
+          <div>{message}</div>
+          <Keyboard
+            guess={handleGuess}
+            correctLetters={correctGuesses}
+            incorrectLetters={incorrectGuesses}
+          />
         </div>
       ) : (
         <>
           <h1>Welcome to The Hangman Game!</h1>
 
-          <form aria-label="player name" onSubmit={onSubmitForm}>
-            <label htmlFor="name">Enter your name </label>
+          <form
+            className="name-form"
+            aria-label="player name"
+            onSubmit={onSubmitForm}
+          >
+            <label
+              className="name-label"
+              htmlFor="name"
+            >Enter your name </label>
             <TextField
               type="text"
               id="name"
+              variant="outlined"
               onChange={onInputChange}
               error={nameError}
               helperText={helperText ? "Your name is required" : ""}
             />
-
-            <Button variant="contained" type="submit" color="primary">
+            <Button
+              variant="contained"
+              type="submit"
+              color="primary"
+            >
               Start the game
             </Button>
           </form>
