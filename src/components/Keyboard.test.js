@@ -18,4 +18,14 @@ describe('Keyboard', () => {
         expect(letter).toBe('Q');
         expect(guess).toHaveBeenCalledWith('Q');
     })
+
+    it('button is disabled when letter has been guessed', () => {
+        const guess = jest.fn();
+        const correctGuesses = [{letter : "Q", position : [0]}];
+        const incorrectGuesses = []; 
+
+        render(<Keyboard guess={guess} correctLetters={correctGuesses} incorrectLetters={incorrectGuesses}/>);
+        const button = screen.queryByText('Q');
+        expect(button).toBeDisabled();
+    } )
 })
