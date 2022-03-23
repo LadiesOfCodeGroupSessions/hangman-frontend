@@ -15,6 +15,7 @@ function Keyboard(props) {
   );
 }
 
+// TODO: If its correct should be disabled + green
 function disabledButton(guessLetter, correctLetters) {
   if (!correctLetters) {
     return false;

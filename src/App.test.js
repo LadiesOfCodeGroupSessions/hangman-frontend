@@ -3,9 +3,9 @@ import App from "./App";
 import {render, screen} from "@testing-library/react";
 
 describe('App', () => {
-  it('Should have form', async () => {
+  it('Should have form', () => {
     render(<App />);
 
-    expect(await screen.findByRole("form")).not.toBeNull();
+    expect(screen.getByRole("form")).not.toBeNull();
   });
 });
