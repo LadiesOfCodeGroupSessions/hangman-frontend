@@ -4,10 +4,7 @@ function Keyboard(props) {
   return (
     <div>
       {"QWERTYUIOPASDFGHJKLZXCVBNM".split("").map((letter) => (
-        // TODO: pass down array of correct letters and 
-        // incorrect letters as props
-        // dynamically asign classname to change to colour
-        <button className="key" disabled= {disabledButton(letter, props.correctLetters)} key={letter} onClick={() => props.guess(letter)}>
+        <button className={getClassName(letter, props.correctLetters, props.incorrectLetters) ? "correctGuess" : "incorrectGuess"} disabled={isButtonDisabled(letter, props.correctLetters, props.incorrectLetters)} key={letter} onClick={() => props.guess(letter)}>
           {letter}
         </button>
       ))}
@@ -15,16 +12,20 @@ function Keyboard(props) {
   );
 }
 
-// TODO: If its correct should be disabled + green
-function disabledButton(guessLetter, correctLetters) {
-  if (!correctLetters) {
-    return false;
+function isButtonDisabled(guessLetter, correctLetters, incorrectLetters) {
+  if (correctLetters.find(item => (item.letter === guessLetter)) || (incorrectLetters.find(item => (item.letter === guessLetter)))) {
+    return true;
   }
+}
 
+function getClassName(guessLetter, correctLetters, incorrectLetters){
   if (correctLetters.find(item => (item.letter === guessLetter))) {
     return true;
-  } 
-  return false;
+  }
+
+  if (incorrectLetters.find(item => (item.letter === guessLetter))) {
+    return false;
+  }
 }
 
 export default Keyboard;

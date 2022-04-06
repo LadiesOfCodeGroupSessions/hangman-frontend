@@ -1,16 +1,22 @@
-.key {
-    width: 4rem;
-    height: 4rem;
-    font-size: 2rem;
-    text-align: center;
-    margin: 4px;
-    background-color: #006787;
-    color: white;
-    font-weight: bold;
-    border: none;
-    border-radius: 4px;
+.correctGuess, .incorrectGuess {
+  width: 4rem;
+  height: 4rem;
+  font-size: 2rem;
+  text-align: center;
+  margin: 4px;
+  background-color: #006787;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
 }
 
-.key:disabled {
-    background-color: gray;
+.correctGuess:disabled {
+  background-color: green;
 }
+
+.incorrectGuess:disabled {
+  background-color: grey;
+}
+
+

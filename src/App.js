@@ -56,32 +56,37 @@ function App() {
     setInput(event.target.value);
   };
 
+  // TODO: Make sure functions in App.js are unit tested
   const handleGuess = (letter) => {
     if (gameId === 0) {
       console.error('something went wrong')
       return
     }
 
-    guessLetter({ "gameId": gameId, "letter": letter })
-      .then((response) => {
-        const {
-          correctLetters,
-          incorrectLetters,
-          lives: livesLeft,
-          gameInProgress: inProgress
-        } = response
-        setCorrectGuesses(correctLetters)
-        setIncorrectGuesses(incorrectLetters)
-        setLives(livesLeft)
-        setGameInProgress(inProgress)
-        getGuessOutcomeMessage(letter, correctLetters, incorrectLetters, livesLeft, inProgress)
-      })
+    if (lives !== 0){
+      guessLetter({ "gameId": gameId, "letter": letter })
+        .then((response) => {
+          const {
+            correctLetters,
+            incorrectLetters,
+            lives: livesLeft,
+            gameInProgress: inProgress
+          } = response
+          setCorrectGuesses(correctLetters)
+          setIncorrectGuesses(incorrectLetters)
+          setLives(livesLeft)
+          setGameInProgress(inProgress)
+          getGuessOutcomeMessage(letter, correctLetters, livesLeft, inProgress)
+        })
+    }
+    else {
+      setMessage('Game Over! Try again?')
+    }
   }
 
-  const getGuessOutcomeMessage = (letter, correctLetters, incorrectLetters, livesLeft, inProgress) => {
+  const getGuessOutcomeMessage = (letter, correctLetters, livesLeft, inProgress) => {
     if (!inProgress && livesLeft === 0) {
-      setMessage('Game Over!')
-      // TODO: Fix game in progress, should change to false when game is won
+      setMessage('Game Over! Try again?')
     } else if (!inProgress) {
       setMessage('You\'ve won!')
     } else if (correctLetters.find((item) => item.letter === letter)) {
@@ -95,7 +100,7 @@ function App() {
     <div className="App">
       {user && gameId !== 0 ? (
         <div>
-          <h1>Hi, {user.name}</h1>
+          <h1>Let's play Hangman, {user.name}!</h1>
           <Word
             secretWordLength={numberOfLetters}
             correctLetters={correctGuesses}
