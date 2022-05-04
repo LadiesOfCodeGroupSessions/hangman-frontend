@@ -56,7 +56,6 @@ function App() {
     setInput(event.target.value);
   };
 
-  // TODO: Make sure functions in App.js are unit tested
   const handleGuess = (letter) => {
     if (gameId === 0) {
       console.error('something went wrong')

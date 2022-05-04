@@ -21,7 +21,7 @@
 - focus on unit testing, replace enzyme with react testing library - DONE
 - create new page for game (seperate game and welcome screen) - NOT NEEDED
 - create component that draws the lines for each character of secret word - DONE
-- create component that show keyboard and disables incorrect letters
+- create component that show keyboard and disables incorrect letters - DONE
 - create alert for game outcome
 - create function that takes lives and returns correct image
 - create component that shows the image
