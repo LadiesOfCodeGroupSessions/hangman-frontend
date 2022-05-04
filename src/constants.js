@@ -1,0 +1,1 @@
+export const GAME_WON = 'You\'ve won!'

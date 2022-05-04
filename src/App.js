@@ -7,6 +7,9 @@ import Word from "./components/Word";
 import Keyboard from "./components/Keyboard";
 import guessLetter from "./api/guessLetter";
 import startGame from "./api/startGame";
+import Confetti from "react-confetti";
+import { GAME_WON } from "./constants";
+import GameOutcomeModal from "./components/GameOutcomeModal";
 
 function App() {
   const [input, setInput] = useState("");
@@ -17,7 +20,7 @@ function App() {
   const [incorrectGuesses, setIncorrectGuesses] = useState([]);
   const [numberOfLetters, setNumberOfLetters] = useState(0);
   const [lives, setLives] = useState(10);
-  const [gameInProgress, setGameInProgress] = useState(false);
+  const [gameInProgress, setGameInProgress] = useState(true);
   const [gameId, setGameId] = useState(0);
   const [message, setMessage] = useState('');
 
@@ -28,25 +31,39 @@ function App() {
     }
   }, []);
 
-  const onSubmitForm = (event) => {
+  const onSubmitForm = async (event) => {
     event.preventDefault();
     if (input) {
       setNameError(false);
       setHelperText(false);
-      takeName(input).then((user) => {
-        setUser(user)
-        return startGame({ "playerId": user["id"], "gameInProgress": true })
-      }).then(response => {
-        const { gameId, secretWordLength } = response
-        setGameId(gameId)
-        setNumberOfLetters(secretWordLength)
+      try {
+        const user = await takeName(input)
+        await restartGame(user)
+      } catch (error) {
+        console.error(error)
+      }
 
-      }).catch(console.error);
     } else {
       setNameError(true);
       setHelperText(true);
     }
   };
+
+  const restartGame = () => {
+    handleStartGame(user)
+    setCorrectGuesses([])
+    setIncorrectGuesses([])
+    setLives(10)
+    setGameInProgress(true)
+    setMessage('')
+  }
+
+  const handleStartGame = async (user) => {
+    const response = await startGame({ "playerId": user["id"], "gameInProgress": true })
+    const { gameId, secretWordLength } = await response
+    await setGameId(gameId)
+    await setNumberOfLetters(secretWordLength)
+  }
 
   const onInputChange = (event) => {
     if (event.target.value) {
@@ -62,7 +79,7 @@ function App() {
       return
     }
 
-    if (lives !== 0){
+    if (lives !== 0) {
       guessLetter({ "gameId": gameId, "letter": letter })
         .then((response) => {
           const {
@@ -87,7 +104,7 @@ function App() {
     if (!inProgress && livesLeft === 0) {
       setMessage('Game Over! Try again?')
     } else if (!inProgress) {
-      setMessage('You\'ve won!')
+      setMessage(GAME_WON)
     } else if (correctLetters.find((item) => item.letter === letter)) {
       setMessage('Correct!')
     } else {
@@ -109,6 +126,12 @@ function App() {
             guess={handleGuess}
             correctLetters={correctGuesses}
             incorrectLetters={incorrectGuesses}
+          />
+          {message === GAME_WON && <Confetti />}
+          <GameOutcomeModal
+            open={!gameInProgress}
+            message={message}
+            restartGame={restartGame}
           />
         </div>
       ) : (
