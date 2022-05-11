@@ -25,11 +25,15 @@ function App() {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
+    getPlayerDetailsFromLocalStorage()
+  }, []);
+
+  const getPlayerDetailsFromLocalStorage = () => {
     const userData = localStorage.getItem("hangman");
     if (userData) {
       setUser(JSON.parse(userData));
     }
-  }, []);
+  }
 
   const onSubmitForm = async (event) => {
     event.preventDefault();
@@ -38,7 +42,8 @@ function App() {
       setHelperText(false);
       try {
         const user = await takeName(input)
-        await restartGame(user)
+        console.log("*** in SubmitForm user.name ", user.name)
+        handleStartGame(user)
       } catch (error) {
         console.error(error)
       }
@@ -59,10 +64,13 @@ function App() {
   }
 
   const handleStartGame = async (user) => {
+    getPlayerDetailsFromLocalStorage()
+    
     const response = await startGame({ "playerId": user["id"], "gameInProgress": true })
     const { gameId, secretWordLength } = await response
-    await setGameId(gameId)
-    await setNumberOfLetters(secretWordLength)
+    
+    setGameId(gameId)
+    setNumberOfLetters(secretWordLength)
   }
 
   const onInputChange = (event) => {
